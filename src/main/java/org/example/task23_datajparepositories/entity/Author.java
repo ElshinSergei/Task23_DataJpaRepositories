@@ -1,19 +1,16 @@
 package org.example.task23_datajparepositories.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import org.hibernate.validator.constraints.Range;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Author {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,6 +33,11 @@ public class Author {
 
     @PastOrPresent(message = "createdAt не может быть в будущем")
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "author")
+    private List<Book> bookList;
+
+
 
     public Long getId() {
         return id;
